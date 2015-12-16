@@ -47,6 +47,11 @@
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </xacro:soft_hand>
 
+
+<!--   <xacro:soft_hand parent="left_arm_7_link" name="left_hand" left="true" withAdaptiveTransmission="true" useMimicTag="true">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:soft_hand> -->
+
   <!-- RIGHT ARM -->
   <xacro:kuka_lwr name="right_arm" parent="vito_anchor">
     <origin xyz="-0.165 0.10858 0.390" rpy="-1.5707963267948966 0.5235987010713441 0.5235990737060282"/>
@@ -56,6 +61,10 @@
   <xacro:soft_hand parent="right_arm_7_link" name="right_hand" left="false" withAdaptiveTransmission="true" useMimicTag="$(arg use_mimic_tag)">
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </xacro:soft_hand>
+<!-- 
+  <xacro:soft_hand parent="right_arm_7_link" name="right_hand" left="false" withAdaptiveTransmission="true" useMimicTag="true">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:soft_hand> -->
 
   <!-- HEAD -->
   <xacro:kit_head name="head" parent="vito_anchor">
