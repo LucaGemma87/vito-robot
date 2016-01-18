@@ -23,6 +23,11 @@ left_arm:
   #     - left_arm_5_joint_stiffness
   #     - left_arm_6_joint_stiffness
 
+left_ft_sensor:
+ force_torque_sensor_controller:
+   type: force_torque_sensor_controller/ForceTorqueSensorController
+   publish_rate: 1000  
+
 left_hand:
   joint_state_controller:
     type: joint_state_controller/JointStateController
@@ -57,6 +62,12 @@ right_arm:
   #     - right_arm_5_joint_stiffness
   #     - right_arm_6_joint_stiffness
 
+
+right_ft_sensor:
+ force_torque_sensor_controller:
+   type: force_torque_sensor_controller/ForceTorqueSensorController
+   publish_rate: 1000    
+
 right_hand:
   joint_state_controller:
     type: joint_state_controller/JointStateController
@@ -80,3 +91,5 @@ head:
       - head_eyes_tilt_joint
       - head_left_eye_joint
       - head_right_eye_joint
+
+

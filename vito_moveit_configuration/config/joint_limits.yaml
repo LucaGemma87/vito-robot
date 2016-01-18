@@ -72,7 +72,7 @@ joint_limits:
     max_velocity: 3.21140582367
     has_acceleration_limits: false
     max_acceleration: 0
-  left_arm_7_link_left_measure_joint:
+  left_measure_joint:
     has_velocity_limits: true
     max_velocity: 0
     has_acceleration_limits: true
@@ -112,7 +112,7 @@ joint_limits:
     max_velocity: 3.21140582367
     has_acceleration_limits: false
     max_acceleration: 0
-  right_arm_7_link_right_measure_joint:
+  right_measure_joint:
     has_velocity_limits: true
     max_velocity: 0
     has_acceleration_limits: true

@@ -27,3 +27,15 @@ right_arm:
   - right_arm_4_joint
   - right_arm_5_joint
   - right_arm_6_joint
+
+left_ft_sensor:
+ root: left_base
+ tip:  left_measure
+ joints:
+  - left_measure_joint  
+
+right_ft_sensor:
+ root: right_base
+ tip:  right_measure
+ joints:
+  - right_measure_joint    

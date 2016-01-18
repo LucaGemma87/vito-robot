@@ -14,6 +14,8 @@
     <arg name="left_hand_enabled" default="false"/>
     <arg name="right_arm_enabled" default="false"/>
     <arg name="right_hand_enabled" default="false"/>
+    <arg name="left_ft_sensor_enabled" default="false"/>
+    <arg name="right_ft_sensor_enabled" default="false"/>
 
     <!-- choose whether or not to start the full robot simulation -->
     <arg name="use_robot_sim" default="true"/>
@@ -32,6 +34,7 @@
     </group>
 
     <group if="$(arg use_joint_state_publisher)">
+        <param name="publish_frequency" value="1000"/>
         <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
             <param name="use_gui" value="$(arg gui)"/>
             <!-- listens to each part -->
@@ -39,7 +42,7 @@
         </node>
     </group>
 
-    <param name="publish_frequency" value="100"/>
+    <param name="publish_frequency" value="1000"/>
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"  />
 
     <group if="$(arg use_rviz)">
@@ -64,7 +67,7 @@
         <!-- load Gazebo simulation environment -->
         <include file="$(find gazebo_ros)/launch/empty_world.launch">
             <arg name="world_name" value="$(find vito_description)/worlds/simple_environment.world"/>
-            <arg name="paused" value="true"/>
+            <arg name="paused" value="false"/>
             <!-- when using the real/sim scenario in parallel, set "use_enabled_time" to false -->
             <arg name="use_sim_time" value="true"/>
             <arg name="gui" value="true"/>
@@ -133,6 +136,17 @@
         <!-- load the controllers in current namespace -->
         <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"  args="joint_state_controller joint_trajectory_controller"/>
     </group>
+
+     <group ns="left_ft_sensor"> 
+       <rosparam command="load" ns="force_torque_sensor_controller" file="$(find vito_description)/config/hardware_interfaces.yaml" />
+       <rosparam command="load" ns="force_torque_sensor_controller" file="$(find vito_description)/config/left_ft_sensor_names.yaml" />
+       <rosparam command="load" ns="force_torque_sensor_controller" file="$(find vito_description)/config/force_torque_sensor_controller.yaml" />  
+
+      <node name="force_torque_sensor_sim_ros_control" pkg="force_torque_sensor" type="force_torque_sensor_sim_ros_control_node" output="screen">
+      </node>  
+
+          <node name="force_torque_sensor_controller_spawner" pkg="controller_manager" type="spawner" ns="force_torque_sensor_controller" respawn="false" output="screen" args="force_torque_sensor_controller" />   
+    </group> 
     
     <group ns="left_hand">
         <group if="$(arg left_hand_enabled)">
@@ -172,6 +186,17 @@
         <!-- load the controllers in current namespace -->
         <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"  args="joint_state_controller joint_trajectory_controller"/>
     </group>
+
+         <group ns="right_ft_sensor"> 
+        <rosparam command="load" ns="force_torque_sensor_controller" file="$(find vito_description)/config/hardware_interfaces.yaml" />
+       <rosparam command="load" ns="force_torque_sensor_controller" file="$(find vito_description)/config/right_ft_sensor_names.yaml" />
+       <rosparam command="load" ns="force_torque_sensor_controller" file="$(find vito_description)/config/force_torque_sensor_controller.yaml" />  
+
+      <node name="force_torque_sensor_sim_ros_control" pkg="force_torque_sensor" type="force_torque_sensor_sim_ros_control_node" output="screen">
+      </node>  
+
+          <node name="force_torque_sensor_controller_spawner" pkg="controller_manager" type="spawner" ns="force_torque_sensor_controller" respawn="false" output="screen" args="force_torque_sensor_controller" />   
+    </group> 
 
     <group ns="right_hand">
         <group if="$(arg right_hand_enabled)">
