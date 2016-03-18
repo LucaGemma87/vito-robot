@@ -12,21 +12,47 @@ left_arm:
       - left_arm_4_joint
       - left_arm_5_joint
       - left_arm_6_joint
-  # stiffness_trajectory_controller:
-  #   type: position_controllers/JointTrajectoryController
-  #   joints:
-  #     - left_arm_0_joint_stiffness
-  #     - left_arm_1_joint_stiffness
-  #     - left_arm_2_joint_stiffness
-  #     - left_arm_3_joint_stiffness
-  #     - left_arm_4_joint_stiffness
-  #     - left_arm_5_joint_stiffness
-  #     - left_arm_6_joint_stiffness
+      
+  # computed_torque_controller
+  ComputedTorqueController:
+    type: lwr_controllers/ComputedTorqueController
+    root_name: left_arm_base_link
+    tip_name: left_arm_7_link      
+  # VS computed_torque_controller
+  VSComputedTorqueController:
+    type: lwr_controllers/VSComputedTorqueController
+    root_name: left_arm_base_link
+    tip_name: left_arm_7_link   
+    
+         #    Joint Impedance Controllers
+  JointImpedanceController:
+    type: lwr_controllers/JointImpedanceController
+    root_name: left_arm_base_link
+    tip_name: left_arm_7_link 
+    stiffness_gains: 300
+    damping_gains: .7     
+    
+     #   VS Joint Impedance Controllers LUCA GEMMA
+  VSJointImpedanceController:
+    type: lwr_controllers/VSJointImpedanceController
+    root_name: left_arm_base_link
+    tip_name: left_arm_7_link 
+    stiffness_gains: 300
+    damping_gains: .7  
+    
+    ## Inverse Dynamics Controllers
+  #InverseDynamicsControl:
+    #type: lwr_controllers/InverseDynamicsController
+    #root_name: vito_anchor
+    #tip_name: left_arm_7_link
+
 
 left_ft_sensor:
  force_torque_sensor_controller:
    type: force_torque_sensor_controller/ForceTorqueSensorController
-   publish_rate: 1000  
+   publish_rate: 1000
+   resources:
+   - left_measure_joint  
 
 left_hand:
   joint_state_controller:
@@ -51,22 +77,45 @@ right_arm:
       - right_arm_4_joint
       - right_arm_5_joint
       - right_arm_6_joint
-  # stiffness_trajectory_controller:
-  #   type: position_controllers/JointTrajectoryController
-  #   joints:
-  #     - right_arm_0_joint_stiffness
-  #     - right_arm_1_joint_stiffness
-  #     - right_arm_2_joint_stiffness
-  #     - right_arm_3_joint_stiffness
-  #     - right_arm_4_joint_stiffness
-  #     - right_arm_5_joint_stiffness
-  #     - right_arm_6_joint_stiffness
-
+      
+    #  computed_torque_controller
+  ComputedTorqueController:
+    type: lwr_controllers/ComputedTorqueController
+    root_name: right_arm_base_link
+    tip_name: right_arm_7_link  
+     # VS computed_torque_controller
+  VSComputedTorqueController:
+    type: lwr_controllers/VSComputedTorqueController
+    root_name: right_arm_base_link
+    tip_name: right_arm_7_link   
+    
+       #    Joint Impedance Controllers
+  JointImpedanceController:
+    type: lwr_controllers/JointImpedanceController
+    root_name: right_arm_base_link
+    tip_name: right_arm_7_link 
+    stiffness_gains: 300
+    damping_gains: .7    
+     #   VS Joint Impedance Controllers LUCA GEMMA
+  VSJointImpedanceController:
+    type: lwr_controllers/VSJointImpedanceController
+    root_name: right_arm_base_link
+    tip_name: right_arm_7_link 
+    stiffness_gains: 300
+    damping_gains: .7  
+    
+  ## Inverse Dynamics Controllers
+  #InverseDynamicsControl:
+    #type: lwr_controllers/InverseDynamicsController
+    #root_name: vito_anchor
+    #tip_name: right_arm_7_link   
 
 right_ft_sensor:
  force_torque_sensor_controller:
    type: force_torque_sensor_controller/ForceTorqueSensorController
    publish_rate: 1000    
+   resources:
+    - right_measure_joint  
 
 right_hand:
   joint_state_controller:

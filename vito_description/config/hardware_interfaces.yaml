@@ -38,4 +38,12 @@ right_ft_sensor:
  root: right_base
  tip:  right_measure
  joints:
-  - right_measure_joint    
+  - right_measure_joint
+  
+right_hand:
+  joints: 
+   - right_hand_sinergy_joint
+   
+left_hand:
+  joints: 
+   - left_hand_sinergy_joint   

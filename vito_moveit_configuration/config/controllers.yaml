@@ -10,14 +10,15 @@ controller_list:
       - left_arm_3_joint
       - left_arm_4_joint
       - left_arm_5_joint
-      - left_arm_6_joint
-      - left_measure_joint   
+      - left_arm_6_joint 
+     
   - name: /left_hand/joint_trajectory_controller
     type: FollowJointTrajectory
     action_ns: follow_joint_trajectory
     default: true
     joints:
       - left_hand_synergy_joint
+  
   - name: /right_arm/joint_trajectory_controller
     type: FollowJointTrajectory
     action_ns: follow_joint_trajectory
@@ -30,13 +31,14 @@ controller_list:
       - right_arm_4_joint
       - right_arm_5_joint
       - right_arm_6_joint
-      - right_measure_joint
+
   - name: /right_hand/joint_trajectory_controller
     type: FollowJointTrajectory
     action_ns: follow_joint_trajectory
     default: true
     joints:
       - right_hand_synergy_joint
+  
   - name: /head/joint_trajectory_controller
     type: FollowJointTrajectory
     action_ns: follow_joint_trajectory

@@ -117,3 +117,17 @@ joint_limits:
     max_velocity: 0
     has_acceleration_limits: true
     max_acceleration: 0
+  left_hand_synergy_joint:
+    max_position: 1
+    min_position: 0
+    has_velocity_limits: false
+    max_velocity: 0
+    has_acceleration_limits: true
+    max_acceleration: 1.52
+  right_hand_synergy_joint:
+    max_position: 1
+    min_position: 0
+    has_velocity_limits: false
+    max_velocity: 0
+    has_acceleration_limits: true
+    max_acceleration: 1.52  

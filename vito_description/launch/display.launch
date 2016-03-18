@@ -34,16 +34,19 @@
     </group>
 
     <group if="$(arg use_joint_state_publisher)">
-        <param name="publish_frequency" value="1000"/>
+        <!-- <param name="publish_frequency" value="1000"/> -->
         <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
             <param name="use_gui" value="$(arg gui)"/>
+            <param name="publish_frequency" value="1000"/>
             <!-- listens to each part -->
             <rosparam param="source_list">[/left_arm/joint_states,/left_hand/joint_states,/right_arm/joint_states,/right_hand/joint_states,/head/joint_states]</rosparam>
         </node>
     </group>
 
-    <param name="publish_frequency" value="1000"/>
-    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"  />
+    <!-- <param name="publish_frequency" value="1000"/> -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"  >
+         <param name="publish_frequency" value="1000"/>
+     </node>
 
     <group if="$(arg use_rviz)">
         <node name="my_rviz" pkg="rviz" type="rviz" respawn="false" args="-d $(find vito_description)/launch/rviz_config.rviz" output="screen"/>
@@ -73,6 +76,7 @@
             <arg name="gui" value="true"/>
             <arg name="headless" value="true"/>
             <arg name="debug" value="false"/>
+           
         </include>
 
         <!-- calibration transformations -->
@@ -134,18 +138,54 @@
         </group>
 
         <!-- load the controllers in current namespace -->
-        <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"  args="joint_state_controller joint_trajectory_controller"/>
+        <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"  args="joint_state_controller joint_trajectory_controller"/>   
+        
+        <node name="controller_spawner_2" pkg="controller_manager" type="spawner" respawn="false" output="screen"  args="--stopped  ComputedTorqueController   VSComputedTorqueController  JointImpedanceController VSJointImpedanceController "/>   
+        
+        
     </group>
 
+  
+
+       
+
      <group ns="left_ft_sensor"> 
+       <param name="ft_sensor_params_name" value="force_torque_sensor_controller_params/" /> 
+        <param name="imu_sensor_params_name" value="imu_sensor_params/" />
+      
+      <group ns="force_torque_sensor_controller_params">
+          <param name="ft_sensor_name" value="left" />
+          <param name="ft_sensor_frame_id" value="left_measure" />
+          <param name="ft_sensor_topic" value="/left/ft_sensor_topic" />
+      </group>   
+
+             <group ns="imu_sensor_params">
+          <param name="imu_sensor_name" value="left" />
+          <param name="imu_sensor_frame_id" value="left_imu_measure" />
+          <param name="imu_sensor_topic" value="/left/left/imu" />
+      </group>
+ 
        <rosparam command="load" ns="force_torque_sensor_controller" file="$(find vito_description)/config/hardware_interfaces.yaml" />
        <rosparam command="load" ns="force_torque_sensor_controller" file="$(find vito_description)/config/left_ft_sensor_names.yaml" />
-       <rosparam command="load" ns="force_torque_sensor_controller" file="$(find vito_description)/config/force_torque_sensor_controller.yaml" />  
+       <rosparam command="load" ns="force_torque_sensor_controller" file="$(find vito_description)/config/left_force_torque_sensor_controller.yaml" />  
+
+
 
       <node name="force_torque_sensor_sim_ros_control" pkg="force_torque_sensor" type="force_torque_sensor_sim_ros_control_node" output="screen">
+          
       </node>  
 
-          <node name="force_torque_sensor_controller_spawner" pkg="controller_manager" type="spawner" ns="force_torque_sensor_controller" respawn="false" output="screen" args="force_torque_sensor_controller" />   
+          <node name="force_torque_sensor_controller_spawner" pkg="controller_manager" type="spawner" ns="force_torque_sensor_controller" respawn="false" output="screen" args="force_torque_sensor_controller" />
+          
+               
+      
+      <rosparam command="load" file="$(find force_torque_sensor)/config/LowPass_Filter.yaml" /> 
+
+           <node name="force_torque_sensor_filtering" pkg="force_torque_sensor" type="force_torque_sensor_filter_node" output="screen">
+      </node>  
+
+       <node name="left_imu_sensor_filtering" pkg="force_torque_sensor" type="imu_sensor_filter_node" output="screen" respawn="true" >
+          </node>
     </group> 
     
     <group ns="left_hand">
@@ -185,17 +225,48 @@
 
         <!-- load the controllers in current namespace -->
         <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"  args="joint_state_controller joint_trajectory_controller"/>
+        
+           <node name="controller_spawner_2" pkg="controller_manager" type="spawner" respawn="false" output="screen"  args="--stopped ComputedTorqueController VSComputedTorqueController  JointImpedanceController VSJointImpedanceController "/>   
     </group>
 
-         <group ns="right_ft_sensor"> 
+
+
+      
+
+   <group ns="right_ft_sensor"> 
+
+        <group ns="force_torque_sensor_controller_params">
+          <param name="ft_sensor_name" value="right" />
+          <param name="ft_sensor_frame_id" value="right_measure" />
+          <param name="ft_sensor_topic" value="/right/ft_sensor_topic" />
+      </group>
+
+       <group ns="imu_sensor_params">
+          <param name="imu_sensor_name" value="right" />
+          <param name="imu_sensor_frame_id" value="right_imu_measure" />
+          <param name="imu_sensor_topic" value="/right/right/imu" />
+      </group>
+
+      <param name="ft_sensor_params_name" value="force_torque_sensor_controller_params/" />
+      <param name="imu_sensor_params_name" value="imu_sensor_params/" />
+
         <rosparam command="load" ns="force_torque_sensor_controller" file="$(find vito_description)/config/hardware_interfaces.yaml" />
        <rosparam command="load" ns="force_torque_sensor_controller" file="$(find vito_description)/config/right_ft_sensor_names.yaml" />
-       <rosparam command="load" ns="force_torque_sensor_controller" file="$(find vito_description)/config/force_torque_sensor_controller.yaml" />  
+       <rosparam command="load" ns="force_torque_sensor_controller" file="$(find vito_description)/config/right_force_torque_sensor_controller.yaml" />  
 
       <node name="force_torque_sensor_sim_ros_control" pkg="force_torque_sensor" type="force_torque_sensor_sim_ros_control_node" output="screen">
+
       </node>  
 
-          <node name="force_torque_sensor_controller_spawner" pkg="controller_manager" type="spawner" ns="force_torque_sensor_controller" respawn="false" output="screen" args="force_torque_sensor_controller" />   
+     <node name="force_torque_sensor_controller_spawner" pkg="controller_manager" type="spawner" ns="force_torque_sensor_controller" respawn="false" output="screen" args="force_torque_sensor_controller" />
+
+           <rosparam command="load" file="$(find force_torque_sensor)/config/LowPass_Filter.yaml" /> 
+
+           <node name="force_torque_sensor_filtering" pkg="force_torque_sensor" type="force_torque_sensor_filter_node" output="screen">
+      </node>     
+           <node name="right_imu_sensor_filtering" pkg="force_torque_sensor" type="imu_sensor_filter_node" output="screen" respawn="true" >
+          </node>
+          
     </group> 
 
     <group ns="right_hand">
@@ -218,5 +289,11 @@
 <!--         <rosparam command="load" file="$(find grasp_state_publisher)/config/softgrasp.yaml" />
         <node name="grasp_state_publisher" pkg="grasp_state_publisher" type="grasp_state_publisher" respawn="false" output="screen" /> -->
     </group>
+        <!-- launch object  -->
+        <!--       <include file="$(find grasp_estimator)/launch/cylinder_spawner.launch">
+            </include> --> 
+    
+    </launch>
 
-</launch>
+
+
