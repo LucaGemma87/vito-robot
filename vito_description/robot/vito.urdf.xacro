@@ -11,16 +11,18 @@
   <xacro:include filename="$(find kit_head_description)/model/kit_head.urdf.xacro"/>
   <xacro:include filename="$(find force_torque_sensor)/model/ft_sensor_gamma.urdf.xacro"/>
     
- <link name="vito_anchor" />
+ 
   
-<!--   <link name="world" /> -->
+<!--   <link name="world" /> 
   
-<!--  <joint name="world_joint" type="fixed">
-    <origin xyz="0.0 0.0 -0.1" rpy="0 0 0"/>
+  <joint name="world_joint" type="fixed">
+    <origin xyz="0.0 0.0 -0.05" rpy="0 0 0"/>
       <parent link="world"/>
       <child link="vito_anchor"/>
    </joint> -->
-
+  
+   
+   <link name="vito_anchor" />
   <!-- BODY -->
   <xacro:model_table name="table" 
                     parent="vito_anchor"

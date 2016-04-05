@@ -256,8 +256,8 @@
 
 
        <!-- State usefull for the left and right hand middle close-->
-    <group_state name="left_hand_56_close" group="left_hand">
-      <joint name="left_hand_synergy_joint" value="0.56" />
+    <group_state name="left_hand_60_close" group="left_hand">
+      <joint name="left_hand_synergy_joint" value="0.60" />
     </group_state>
     
     <group_state name="right_hand_56_close" group="right_hand">
