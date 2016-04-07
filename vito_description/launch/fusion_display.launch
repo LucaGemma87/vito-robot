@@ -5,21 +5,23 @@
     <arg name="use_rviz" default="true"/>
     <arg name="use_joint_state_publisher" default="true"/>
     <arg name="load_moveit" default="true"/>
-    <arg name="use_calibration_package" default="true"/>
+    <arg name="use_calibration_package" default="false"/>
     <arg name="use_grasp_estimator" default="true"/>
 
     <!-- configure whether the real hardware is enabled or not -->
     <arg name="head_enabled" default="false"/>
-    <arg name="left_arm_enabled" default="false"/>
-    <arg name="left_hand_enabled" default="false"/>
+    <arg name="left_arm_enabled" default="true"/>
+    <arg name="left_hand_enabled" default="true"/>
     <arg name="right_arm_enabled" default="false"/>
     <arg name="right_hand_enabled" default="false"/>
-    <arg name="left_ft_sensor_enabled" default="false"/>
+    <arg name="left_ft_sensor_enabled" default="true"/>
     <arg name="right_ft_sensor_enabled" default="false"/>
 
     <!-- choose whether or not to start the full robot simulation -->
-    <arg name="use_robot_sim" default="true"/>
+    <arg name="use_robot_sim" default="false"/>
 
+
+    <arg name="USBport" default="/dev/ttyUSB0" doc="Check which port the PSoC connected to, and set before launching."/>
     <!-- LAUNCH IMPLEMENTATION -->
 
     <!-- #### -->
@@ -151,25 +153,32 @@
 
      <group ns="left_ft_sensor"> 
      
-  <!--   <include file="$(find force_torque_sensor)/launch/ft_sensor_hw.launch.xml">
+    <include file="$(find force_torque_sensor)/launch/ft_sensor_hw.launch.xml">
        <arg name="ip" value="192.168.1.250"/>
        <arg name="name" value="left" />
        <arg name="type" value="gamma" />
-    </include> -->
+    </include>
     
     
     
        <param name="ft_sensor_params_name" value="force_torque_sensor_controller_params/" /> 
         <param name="imu_sensor_params_name" value="imu_sensor_params/" />
       
-      <group ns="force_torque_sensor_controller_params">
+      <!--group ns="force_torque_sensor_controller_params">
           <param name="ft_sensor_name" value="left" />
           <param name="ft_sensor_frame_id" value="left_measure" />
           <param name="ft_sensor_topic" value="/left/ft_sensor_topic" />
-      </group>
+      </group-->  
       
+      <group ns="force_torque_sensor_controller_params">
+          <param name="ft_sensor_name" value="left" />
+          <param name="ft_sensor_frame_id" value="left_measure" />
+          <param name="ft_sensor_topic" value="/left_ft_sensor/left/left/ft_sensor_topic" />
+      </group> 
       
-      <group ns="imu_sensor_params">
+     <!--  /left_ft_sensor/left/left/ft_sensor_topic -->
+
+             <group ns="imu_sensor_params">
           <param name="imu_sensor_name" value="left" />
           <param name="imu_sensor_frame_id" value="left_imu_measure" />
           <param name="imu_sensor_topic" value="/left/left/imu" />
@@ -204,11 +213,19 @@
             <param name="robot_description" command="$(find xacro)/xacro.py $(find vito_description)/robot/$(arg robot_name).urdf.xacro use_mimic_tag:=true"/>
 
             <rosparam command="load" file="$(find vito_description)/config/left_hand_names.yaml" />
+    
 
             <include file="$(find soft_hand_ros_control)/launch/soft_hand_hw.launch">
                 <arg name="use_deafult_joint_names" value="false"/>
                 <arg name="hand_id" value="1"/>
             </include>
+
+            <include file="$(find imu_robotic_glove_publisher)/launch/glove_publisher.launch">
+              <arg name="port" value="$(arg USBport)"/>
+              <arg name="hand_name" value="left_hand"/>
+           </include>
+
+
         </group>
 
         <!-- load the controllers in current namespace -->

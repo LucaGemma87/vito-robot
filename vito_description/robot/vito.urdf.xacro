@@ -54,12 +54,12 @@
   </xacro:kuka_lwr>
     <!-- LEFT F/T Sensor -->
     <xacro:ft_sensor parent="left_arm_7_link" name="left" type="gamma">
-    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <origin xyz="0 0 0.014" rpy="0 0 0"/>
   </xacro:ft_sensor>
 
   <!-- LEFT SOFTHAND -->
     <xacro:soft_hand parent="left_measure" name="left_hand" left="true" withAdaptiveTransmission="true" useMimicTag="$(arg use_mimic_tag)">
-    <origin xyz="0 0 0.0025" rpy="0 0 0"/>
+    <origin xyz="0 0 0.026" rpy="0 0 0"/>
   </xacro:soft_hand>
   
 
@@ -72,13 +72,13 @@
     <origin xyz="-0.165 0.10858 0.390" rpy="-1.5707963267948966 0.5235987010713441 0.5235990737060282"/>
   </xacro:kuka_lwr>
   <!-- RIGHT F/T Sensor -->
-    <xacro:ft_sensor parent="right_arm_7_link" name="right" type="gamma">
+<!--    <xacro:ft_sensor parent="right_arm_7_link" name="right" type="gamma">
     <origin xyz="0 0 0" rpy="0 0 0"/>
-  </xacro:ft_sensor>
+  </xacro:ft_sensor>-->
 
   <!-- RIGHT SOFTHAND -->
-    <xacro:soft_hand parent="right_measure" name="right_hand" left="false" withAdaptiveTransmission="true" useMimicTag="$(arg use_mimic_tag)">
-    <origin xyz="0 0 0.0025" rpy="0 0 0"/>
+    <xacro:soft_hand parent="right_arm_7_link" name="right_hand" left="false" withAdaptiveTransmission="true" useMimicTag="$(arg use_mimic_tag)">
+    <origin xyz="0 0 0.026" rpy="0 0 0"/>
   </xacro:soft_hand>  
 
 <!--   <xacro:soft_hand parent="right_measure" name="right_hand" left="false" withAdaptiveTransmission="true" useMimicTag="true">
