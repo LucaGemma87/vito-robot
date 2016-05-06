@@ -228,47 +228,29 @@
         <joint name="right_arm_6_joint" value="-0.2" />
     </group_state>
 
-   <group_state name="left_hand_arm_exp" group="left_hand_arm">
-        <joint name="left_arm_0_joint" value="-1.50" />
-        <joint name="left_arm_1_joint" value="-0.12" />
-        <joint name="left_arm_2_joint" value="2.2" /> <!--0.7-->
-        <joint name="left_arm_3_joint" value="-1.7" />
-        <joint name="left_arm_4_joint" value="-0.36" />
-        <joint name="left_arm_5_joint" value="0.1" />
-        <joint name="left_arm_6_joint" value="2.00" />
+
+
+
+       <group_state name="left_hand_arm_exp" group="left_hand_arm">
+        <joint name="left_arm_0_joint" value="-0.20" />
+        <joint name="left_arm_1_joint" value="0.90" />
+        <joint name="left_arm_2_joint" value="1.42" /> <!--0.7-->
+        <joint name="left_arm_3_joint" value="-1.41" />
+        <joint name="left_arm_4_joint" value="-1.29" />
+        <joint name="left_arm_5_joint" value="1.11" />
+        <joint name="left_arm_6_joint" value="2.15" />
     </group_state>
     
-   <group_state name="left_hand_arm_exp_1" group="left_hand_arm">
-        <joint name="left_arm_0_joint" value="-1.50" />
-        <joint name="left_arm_1_joint" value="-0.12" />
-        <joint name="left_arm_2_joint" value="2.2" /> <!--0.7-->
-        <joint name="left_arm_3_joint" value="-1.7" />
-        <joint name="left_arm_4_joint" value="1.33" />
-        <joint name="left_arm_5_joint" value="0.1" />
-	<joint name="left_arm_6_joint" value="2.00" />
-    </group_state>
-    
-     <group_state name="left_hand_arm_exp_2" group="left_hand_arm">
-        <joint name="left_arm_0_joint" value="-1.50" />
-        <joint name="left_arm_1_joint" value="-0.12" />
-        <joint name="left_arm_2_joint" value="2.2" /> <!--0.7-->
-        <joint name="left_arm_3_joint" value="-1.7" />
-        <joint name="left_arm_4_joint" value="0.0" />
-        <joint name="left_arm_5_joint" value="0.77" />
-        <joint name="left_arm_6_joint" value="1.82" />
-       
+   <group_state name="left_hand_arm_exp_1" group="left_hand_arm">       
+        <joint name="left_arm_0_joint" value="-0.20" />
+        <joint name="left_arm_1_joint" value="0.90" />
+        <joint name="left_arm_2_joint" value="1.42" /> <!--0.7-->
+        <joint name="left_arm_3_joint" value="-1.41" />
+        <joint name="left_arm_4_joint" value="-1.29" />
+        <joint name="left_arm_5_joint" value="1.11" />
+        <joint name="left_arm_6_joint" value="-1.99" />
     </group_state>
 
-                <group_state name="left_hand_arm_exp_3" group="left_hand_arm">
-        <joint name="left_arm_0_joint" value="-1.50" />
-        <joint name="left_arm_1_joint" value="-0.12" />
-        <joint name="left_arm_2_joint" value="2.2" /> <!--0.7-->
-        <joint name="left_arm_3_joint" value="-1.7" />
-        <joint name="left_arm_4_joint" value="-1.57" />
-        <joint name="left_arm_5_joint" value="1.72" />
-        <joint name="left_arm_6_joint" value="-1.36" />
-    
-    </group_state>
     
          <group_state name="left_hand_arm_exp_4" group="left_hand_arm">
         <joint name="left_arm_0_joint" value="-1.50" />
@@ -278,8 +260,20 @@
         <joint name="left_arm_4_joint" value="-1.57" />
         <joint name="left_arm_5_joint" value="1.72" />
         <joint name="left_arm_6_joint" value="-0.6" />
-      c
+    
     </group_state>
+
+        <group_state name="left_hand_arm_exp_5" group="left_hand_arm">
+        <joint name="left_arm_0_joint" value="-1.50" />
+        <joint name="left_arm_1_joint" value="-0.12" />
+        <joint name="left_arm_2_joint" value="2.2" /> <!--0.7-->
+        <joint name="left_arm_3_joint" value="-1.7" />
+        <joint name="left_arm_4_joint" value="0.0" />
+        <joint name="left_arm_5_joint" value="0.0" />
+        <joint name="left_arm_6_joint" value="0.0" />
+       
+    </group_state>
+
     
     <!-- State usefull for the left and right hand  -->
     <group_state name="left_hand_home" group="left_hand">
@@ -1618,6 +1612,8 @@
     <disable_collisions link1="left_hand_palm_link" link2="left_hand_thumb_distal_link" reason="Never" />
     <disable_collisions link1="left_hand_palm_link" link2="left_hand_ring_distal_link" reason="Never" />
     <disable_collisions link1="left_hand_index_knuckle_link" link2="left_hand_index_distal_link" reason="Never" />
+    <disable_collisions link1="left_hand_little_knuckle_link" link2="left_hand_little_distal_link" reason="Never" />
+   <disable_collisions link1="left_hand_thumb_proximal_link" link2="left_hand_index_distal_link" reason="Never" />
 
 <!--     <disable_collisions link1="left_hand_thumb_proximal_link" link2="table_leg_0_link" reason="Never" />
     <disable_collisions link1="left_hand_thumb_proximal_link" link2="table_leg_1_link" reason="Never" />
@@ -2339,6 +2335,10 @@
 
     <disable_collisions link1="left_base" link2="left_imu_measure" reason="Adjacent" />
     <disable_collisions link1="left_arm_7_link" link2="left_imu_measure" reason="Adjacent" />
+
+
+     <disable_collisions link1="left_hand_softhand_base" link2="left_imu_measure" reason="Never" />
+
 
 <!--        <disable_collisions link1="right_base" link2="right_imu_measure" reason="Adjacent" />
     <disable_collisions link1="right_arm_7_link" link2="right_imu_measure" reason="Adjacent" />-->

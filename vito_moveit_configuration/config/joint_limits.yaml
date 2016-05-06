@@ -64,12 +64,12 @@ joint_limits:
     max_acceleration: 0
   left_arm_5_joint:
     has_velocity_limits: true
-    max_velocity: 0.8
+    max_velocity: 0.5
     has_acceleration_limits: false
     max_acceleration: 0
   left_arm_6_joint:
     has_velocity_limits: true
-    max_velocity: 0.8
+    max_velocity: 0.5
     has_acceleration_limits: false
     max_acceleration: 0
   left_measure_joint:
@@ -120,10 +120,10 @@ joint_limits:
   left_hand_synergy_joint:
     max_position: 1
     min_position: 0
-    has_velocity_limits: true
-    max_velocity: 1.52
-    has_acceleration_limits: true
-    max_acceleration: 1.52
+    has_velocity_limits: false
+    max_velocity: 0.25
+    has_acceleration_limits: false
+    max_acceleration: 0.25
   right_hand_synergy_joint:
     max_position: 1
     min_position: 0

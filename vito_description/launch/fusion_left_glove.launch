@@ -1,0 +1,17 @@
+    
+        
+<launch>
+
+    <group ns="left_hand">
+      
+
+            <include file="$(find imu_robotic_glove_publisher)/launch/glove_publisher.launch">
+              <arg name="port" value="$(arg USBport)"/>
+              <arg name="hand_name" value="left_hand"/>
+           </include>
+
+
+        </group>
+
+        
+</launch>

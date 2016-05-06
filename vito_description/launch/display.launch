@@ -150,15 +150,7 @@
        
 
      <group ns="left_ft_sensor"> 
-     
-  <!--   <include file="$(find force_torque_sensor)/launch/ft_sensor_hw.launch.xml">
-       <arg name="ip" value="192.168.1.250"/>
-       <arg name="name" value="left" />
-       <arg name="type" value="gamma" />
-    </include> -->
-    
-    
-    
+      
        <param name="ft_sensor_params_name" value="force_torque_sensor_controller_params/" /> 
         <param name="imu_sensor_params_name" value="imu_sensor_params/" />
       
